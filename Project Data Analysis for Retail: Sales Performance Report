@@ -1,0 +1,36 @@
+select 
+year (order_date) as years,
+sum(sales) as sales,
+count(distinct order_id) as number_of_order
+from dqlab_sales_store
+where order_status = 'Order Finished'
+group by 1
+
+SELECT year(order_date) as years, product_sub_category, sum(sales) as sales from dqlab_sales_store
+where year (order_date) between 2011 and 2012 and order_status = 'Order Finished'
+group by years,product_sub_category
+order by years ASC, sales DESC
+
+SELECT year (order_date) as years, SUM(sales) as sales, SUM(discount_value) promotion_value, round(sum(discount_value)/sum(sales)*100,2) as burn_rate_percentage
+FROM dqlab_sales_store
+WHERE order_status = 'Order Finished'
+GROUP BY years
+ORDER BY years ASC
+
+SELECT 
+year (order_date) as years, 
+product_sub_category,
+product_category,
+SUM(sales) as sales,
+SUM(discount_value) as promotion_value, round(sum(discount_value)/sum(sales)*100,2) as burn_rate_percentage
+FROM dqlab_sales_store
+WHERE order_status = 'Order Finished' and year (order_date)=2012
+GROUP BY years,product_sub_category, product_category
+ORDER BY sales DESC
+
+select year (order_date) as years, count(distinct customer ) as number_of_customer from dqlab_sales_store
+WHERE order_status='Order Finished'
+group by years
+order by years ASC
+
+
